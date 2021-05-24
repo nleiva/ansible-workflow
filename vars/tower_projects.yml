@@ -3,8 +3,7 @@ tower_projects:
     scm_type: git
     scm_url: https://github.com/nleiva/ansible-workshop.git
     scm_branch: main
-    scm_clean: true
+    scm_clean: 'no'
+    scm_update_on_launch: 'no'
     description: Project created from code
     organization: "{{ org }}"
-    #wait: true
-    update: true
