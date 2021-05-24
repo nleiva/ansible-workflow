@@ -6,5 +6,5 @@ tower_projects:
     scm_clean: true
     description: Project created from code
     organization: "{{ org }}"
-    wait: true
+    #wait: true
     update: true
