@@ -6,7 +6,7 @@
   connection: local
   vars:
     - org: "Default"
-    - tower_host: "{{ lookup('env', 'TOWER_HOST') }}"
+    - tower_hostname: "{{ lookup('env', 'TOWER_HOST') }}"
     - tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
     - tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
 
