@@ -7,6 +7,6 @@ collections:
   # - name: awx.awx
   #   version: 19.1.0
 
-  - name: ansible.tower
-    version: 3.8.3
+  # - name: ansible.tower
+  #   version: 3.8.3
     #source: https://cloud.redhat.com/api/automation-hub/
