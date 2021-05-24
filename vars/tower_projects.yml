@@ -1,0 +1,10 @@
+tower_projects:
+  - name: Workflow Example Project
+    scm_type: git
+    scm_url: https://github.com/nleiva/ansible-workshop.git
+    scm_branch: main
+    scm_clean: true
+    description: Project created from code
+    organization: "{{ org }}"
+    wait: true
+    update: true

@@ -1,21 +1,19 @@
 # Needs
 # Either: tower_hostname, tower_username, tower_password
 # Or: tower_hostname, tower_oauthtoken 
-- name: Playbook to create the Workflow Example Project
+- name: Playbook to create the 'Workflow Example Project'
   hosts: localhost
   connection: local
+  vars:
+    - org: "Default"
 
-  tasks:
-    - name: Create project  
-      redhat_cop.tower_configuration.tower_projects:
-        - name: Workflow Example Project
-          scm_type: git
-          scm_url: https://github.com/nleiva/ansible-workshop.git
-          scm_branch: main
-          scm_clean: true
-          description: Project created from code
-          organization: "{{ org }}"
-          wait: true
-          update: true
-          vars:
-            - org: "Default"
+  pre_tasks:
+    - name: Include vars from vars directory
+      include_vars:
+        dir: ./vars
+        extensions: ["yml"]
+      tags:
+        - always
+
+  roles:
+    - {role: redhat_cop.tower_configuration.projects, when: tower_projects is defined, tags: projects}
