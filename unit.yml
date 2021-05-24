@@ -1,0 +1,23 @@
+- name: Workflow Unit work
+  hosts: localhost
+  #connection: local
+  gather_facts: "{{ my_facts | default('no', true) }}"
+  vars:
+    - to_fail: false
+
+  tasks:
+    # - name: Print the date
+    #   debug:
+    #     msg: "The date is {{ test | replace('-','.') }}"
+    - name: Print the data
+      debug:
+        msg: |
+          "Username: {{ tower_user_name }}"
+          "Job ID: {{ tower_job_id }}"
+          "Workflow Name: {{ tower_workflow_job_name | default('N/A', true) }}"
+          "Workflow ID: {{ tower_workflow_job_id | default('N/A', true) }}"
+
+    - name: Example using fail and when together
+      fail:
+        msg: This task has been marked to fail
+      when: to_fail
