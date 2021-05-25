@@ -7,6 +7,7 @@
      - tower_oauthtoken: "{{ lookup('env', 'TOWER_OAUTHTOKEN') }}"
    collections:
      - ansible.tower
+     - redhat_cop.tower_configuration
 
    pre_tasks:
      - name: Include vars from vars directory
@@ -17,5 +18,6 @@
          - always
 
    roles:
-       - {role: redhat_cop.tower_configuration.projects, when: tower_projects is defined, tags: projects}
-       - {role: redhat_cop.tower_configuration.job_templates, when: tower_templates is defined, tags: job_templates}
+       - {role: projects, when: tower_projects is defined, tags: projects}
+       - {role: job_templates, when: tower_templates is defined, tags: job_templates}
+       - {role: workflow_job_templates, when: tower_workflows is defined, tags: workflow_job_templates}
