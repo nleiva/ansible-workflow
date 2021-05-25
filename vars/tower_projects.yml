@@ -1,20 +1,9 @@
-project: Workflow Example Project
-
 tower_projects:
   - name: "{{ project }}"
     scm_type: git
-    scm_url: https://github.com/nleiva/ansible-workflow.git
+    scm_url: "{{ repo }}"
     scm_branch: main
     scm_clean: 'no'
     scm_update_on_launch: 'no'
     description: Project created from code
-    organization: "{{ org }}"
-
-tower_templates:
-  - name: Workflow Example Unit
-    description: Job Template created from code
-    job_type: run
-    inventory: localhost
-    project: "{{ project }}"
-    playbook: unit.yml
-    verbosity: 2
+    organization: "{{ organization }}"
