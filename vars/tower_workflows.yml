@@ -15,19 +15,24 @@ tower_workflows:
         unified_job_template: Workflow Example Unit
         success_nodes:
           - node201
-      - all_parents_must_converge: false
-        identifier: node102
-        unified_job_template: Workflow Example Unit
-        success_nodes:
-          - node201
-      - all_parents_must_converge: true
-        identifier: node201
-        unified_job_template: Workflow Example Unit
-        success_nodes:
-          - node301
-      - all_parents_must_converge: false
-        identifier: node301
-        unified_job_template: Workflow Example Unit
+      - identifier: node201
+        approval_node:
+          name: Simple approval node name
+          description: Approve this to proceed in workflow
+          timeout: 900 # 15 minutes
+      # - all_parents_must_converge: false
+      #   identifier: node102
+      #   unified_job_template: Workflow Example Unit
+      #   success_nodes:
+      #     - node201
+      # - all_parents_must_converge: true
+      #   identifier: node201
+      #   unified_job_template: Workflow Example Unit
+      #   success_nodes:
+      #     - node301
+      # - all_parents_must_converge: false
+      #   identifier: node301
+      #   unified_job_template: Workflow Example Unit
     notification_templates_started: []
     notification_templates_success: []
     notification_templates_error: []
