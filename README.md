@@ -8,7 +8,15 @@ The [configure_tower.yml](configure_tower.yml) will configure your Ansible Tower
 
 `tower_hostname` and `tower_oauthtoken` need to be provided as extra vars or Tower Credentials. Check out [Creating an OAuth 2 token](https://docs.ansible.com/ansible-tower/latest/html/userguide/applications_auth.html#ug-tokens-auth-create).
 
-The config details are loaded from yml files in the [vars](vars) folder.
+The Ansible Tower collection (or AWX) namespace needs to be referenced.
+
+```yaml
+   hosts: localhost
+   collections:
+     - ansible.tower
+```
+
+The configuration details are loaded from the `yml` files in the [vars](vars) folder.
 
 ```yaml
    pre_tasks:
@@ -18,12 +26,12 @@ The config details are loaded from yml files in the [vars](vars) folder.
          extensions: ["yml"]
 ```
 
-To let the [redhat_cop.tower_configuration](https://github.com/redhat-cop/tower_configuration) collection send those to Ansible Tower. This includes `projects`, `job_templates` and `workflows`.
+Finally the [redhat_cop.tower_configuration](https://github.com/redhat-cop/tower_configuration) collection send these to Ansible Tower. This includes `projects`, `job_templates` and `workflows`.
 
 ```yaml
    roles:
-       - {role: redhat_cop.tower_configuration.projects, when: tower_projects is defined, tags: projects}
-       - {role: redhat_cop.tower_configuration.job_templates, when: tower_templates is defined, tags: job_templates}
+       - {role: redhat_cop.tower_configuration.projects, when: tower_projects is defined}
+       - {role: redhat_cop.tower_configuration.job_templates, when: tower_templates is defined}
 ```
 
 ## Dependencies
