@@ -15,7 +15,8 @@ tower_workflows:
         unified_job_template: Workflow Example Unit
         success_nodes:
           - node201
-      - identifier: node201
+      - all_parents_must_converge: false
+        identifier: node201
         approval_node:
           name: Simple approval node name
           description: Approve this to proceed in workflow
