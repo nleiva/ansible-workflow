@@ -6,16 +6,14 @@
     - to_fail: false
 
   tasks:
-    # - name: Print the date
-    #   debug:
-    #     msg: "The date is {{ test | replace('-','.') }}"
-    - name: Print the data
+    - name: Print Job data
       debug:
         msg: |
-          "Username: {{ tower_user_name }}"
-          "Job ID: {{ tower_job_id }}"
-          "Workflow Name: {{ tower_workflow_job_name | default('N/A', true) }}"
-          "Workflow ID: {{ tower_workflow_job_id | default('N/A', true) }}"
+          Username: {{ tower_user_name }}
+          Job ID: {{ tower_job_id }}
+          How the Job was started: {{ tower_job_launch_type }}
+          Workflow Job Name that launched it: {{ tower_workflow_job_name | default('N/A', true) }}
+          Workflow Job ID that launched it: {{ tower_workflow_job_id | default('N/A', true) }}
 
     - name: Example using fail and when together
       fail:

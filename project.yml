@@ -1,14 +1,11 @@
-# Needs
-# Either: tower_hostname, tower_username, tower_password
-# Or: tower_hostname, tower_oauthtoken 
-- name: Playbook to create the 'Workflow Example Project'
+ - name: Playbook to create the 'Workflow Example Project'
   hosts: localhost
   connection: local
   vars:
     - org: "Default"
     - tower_hostname: "{{ lookup('env', 'TOWER_HOST') }}"
-    - tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
-    - tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
+    # - tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
+    # - tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
     - tower_oauthtoken: "{{ lookup('env', 'TOWER_OAUTHTOKEN') }}"
   collections:
     - ansible.tower
