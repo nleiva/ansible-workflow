@@ -1,8 +1,8 @@
 ---
 collections:
   - name: redhat_cop.tower_configuration
-    #version: 1.4.1
-    version: devel
+    version: 1.4.1
+    #version: devel
     #source: https://galaxy.ansible.com
 
   - name: awx.awx
