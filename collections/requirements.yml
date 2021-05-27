@@ -1,12 +1,13 @@
 ---
 collections:
   - name: redhat_cop.tower_configuration
-    version: 1.4.1
-    #version: devel
+    #version: 1.4.1
     #source: https://galaxy.ansible.com
+    version: devel
+    src: https://github.com/redhat-cop/tower_configuration
 
-  - name: awx.awx
-    version: 19.1.0
+  # - name: awx.awx
+  #   version: 19.1.0
 
   - name: ansible.tower
     version: 3.8.3
