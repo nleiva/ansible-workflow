@@ -16,12 +16,28 @@
           Workflow Job Name that launched it: {{ tower_workflow_job_name | default('N/A', true) }}
           Workflow Job ID that launched it: {{ tower_workflow_job_id | default('N/A', true) }}
 
-    - name: Print the UI settings
+    - name: Get Workflow Node ID for this Job
       set_fact:
         tower_settings: "{{ lookup('ansible.tower.tower_api', endpoint) }}"
       register: result
       vars:
-        endpoint: "workflow_job_nodes"
+        endpoint: "workflow_job_nodes/?job_id={{ tower_job_id }}"
+
+    - name: DEBUG
+      debug:
+        # msg: "{{ result | to_nice_json }}"
+        msg: "{{ result }}"
+
+    - name: Get parent Workflow nodes for this Workflow Node
+      set_fact:
+        tower_settings: "{{ lookup('ansible.tower.tower_api', endpoint) }}"
+      register: parents
+      vars:
+        endpoint: "workflow_job_nodes/?success_nodes={{ result.json.results[0].id }}"
+
+    - name: DEBUG
+      debug:
+        msg: "{{ parents }}"
 
     # - name: "Get Workflow node id for this job"
     #   uri:
@@ -41,9 +57,11 @@
     #     password: "{{ tower_password }}"
     #   register: result
 
-    - name: DEBUG
-      debug:
-        msg: "{{ result | to_nice_json }}"
+    - name: "Fail this playbook if a parent node failed"
+      fail:
+        msg: "Parent workflow node {{ item }} failed"
+      when: "item.summary_fields.job.status == 'failed'"
+      loop: "{{ parents.json.results }}"
 
     - name: Example using fail and when together
       fail:
