@@ -57,11 +57,11 @@
       debug:
         msg: "{{ parents }}"
 
-    # - name: "Fail this playbook if a parent node failed"
-    #   fail:
-    #     msg: "Parent workflow node {{ item }} failed"
-    #   when: "item.summary_fields.job.status == 'failed'"
-    #   loop: "{{ parents.json.results }}"
+    - name: "Fail this playbook if a parent node failed"
+      fail:
+        msg: "Parent workflow node {{ item }} failed"
+      when: "item.summary_fields.job.status == 'failed'"
+      loop: "{{ parents.ansible_facts.tower_settings }}"
 
     - name: Example using fail and when together
       fail:
