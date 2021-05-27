@@ -63,18 +63,21 @@
       when: "item.summary_fields.job.status == 'failed'"
       loop: "{{ parents.ansible_facts.tower_settings }}"
 
-    # Exclusive OR (XOR) bol(a) != bol(b)   
-    - name: Generate Boolean for XOR
-      set_fact:
-        my_boolean: "{{ (data[0].summary_fields.job.status != data[1].summary_fields.job.status) }}"
+    # Exclusive OR (XOR) bol(a) != bol(b)
+    - name: Check XOR
+      block:
+      - name: Generate Boolean for XOR
+        set_fact:
+          my_boolean: "{{ (data[0].summary_fields.job.status != data[1].summary_fields.job.status) }}"
+
+      - name: Fail this playbook if a parent node failed
+        fail:
+          msg: "Parent workflow nodes status is not the same (XOR)"
+        when: my_boolean
       when: data|length == 2
       vars:
-        data: "{{ parents.ansible_facts.tower_settings }}"
+          data: "{{ parents.ansible_facts.tower_settings }}"
 
-    - name: Fail this playbook if a parent node failed
-      fail:
-        msg: "Parent workflow nodes status is not the same (XOR)"
-      when: my_boolean
 
     - name: Example using fail and when together
       fail:
