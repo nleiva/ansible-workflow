@@ -23,10 +23,10 @@
       vars:
         endpoint: "workflow_job_nodes/?job_id={{ tower_job_id }}"
 
-    - name: DEBUG workflow
-      debug:
-        # msg: "{{ result | to_nice_json }}"
-        msg: "{{ result.ansible_facts.tower_settings }}"
+    # - name: DEBUG workflow
+    #   debug:
+    #     # msg: "{{ result | to_nice_json }}"
+    #     msg: "{{ result.ansible_facts.tower_settings }}"
 
     - name: Get parent Workflow nodes for this Workflow Node
       set_fact:
@@ -35,29 +35,11 @@
       vars:
         endpoint: "workflow_job_nodes/?success_nodes={{ result.ansible_facts.tower_settings.id }}"
 
-    # - name: "Get Workflow node id for this job"
-    #   uri:
-    #     url: "{{ tower_base_url }}/workflow_job_nodes/?job_id={{ tower_job_id }}"
-    #     #validate_certs: "{{ tower_verify_ssl }}"
-    #     force_basic_auth: true
-    #     user: "{{ tower_username }}"
-    #     password: "{{ tower_password }}"
-    #   register: result
+    # - name: DEBUG parents
+    #   debug:
+    #     msg: "{{ parents }}"
 
-    # - name: "Get parent workflow nodes for this workflow node"
-    #   uri:
-    #     url: "{{ tower_base_url }}/workflow_job_nodes/?success_nodes={{ result.json.results[0].id }}"
-    #     validate_certs: "{{ tower_verify_ssl }}"
-    #     force_basic_auth: true
-    #     user: "{{ tower_username }}"
-    #     password: "{{ tower_password }}"
-    #   register: result
-
-    - name: DEBUG parents
-      debug:
-        msg: "{{ parents }}"
-
-    - name: Fail this playbook if a parent node failed
+    - name: Check if a parent node failed
       debug:
         msg: "Parent workflow node '{{ item.summary_fields.job.name }}' ({{ item.id }}) failed"
       when: "item.summary_fields.job.status == 'failed'"
@@ -77,7 +59,6 @@
       when: data|length == 2
       vars:
           data: "{{ parents.ansible_facts.tower_settings }}"
-
 
     - name: Example using fail and when together
       fail:
