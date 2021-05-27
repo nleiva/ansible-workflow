@@ -4,6 +4,7 @@
   gather_facts: "{{ my_facts | default('no', true) }}"
   vars:
     - to_fail: false
+    - tower_base_url: "https://{{ tower_hostname }}/api/v2/"
 
   tasks:
     - name: Print Job data
@@ -14,6 +15,35 @@
           How the Job was started: {{ tower_job_launch_type }}
           Workflow Job Name that launched it: {{ tower_workflow_job_name | default('N/A', true) }}
           Workflow Job ID that launched it: {{ tower_workflow_job_id | default('N/A', true) }}
+
+    - name: Print the UI settings
+      set_fact:
+        tower_settings: "{{ lookup('ansible.tower.tower_api', endpoint) }}"
+      register: result
+      vars:
+        endpoint: "settings/ui"
+
+    # - name: "Get Workflow node id for this job"
+    #   uri:
+    #     url: "{{ tower_base_url }}/workflow_job_nodes/?job_id={{ tower_job_id }}"
+    #     #validate_certs: "{{ tower_verify_ssl }}"
+    #     force_basic_auth: true
+    #     user: "{{ tower_username }}"
+    #     password: "{{ tower_password }}"
+    #   register: result
+
+    # - name: "Get parent workflow nodes for this workflow node"
+    #   uri:
+    #     url: "{{ tower_base_url }}/workflow_job_nodes/?success_nodes={{ result.json.results[0].id }}"
+    #     validate_certs: "{{ tower_verify_ssl }}"
+    #     force_basic_auth: true
+    #     user: "{{ tower_username }}"
+    #     password: "{{ tower_password }}"
+    #   register: result
+
+    - name: DEBUG
+      debug:
+        msg: "{{ result | from_json | to_nice_json }}"
 
     - name: Example using fail and when together
       fail:
