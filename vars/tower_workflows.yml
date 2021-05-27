@@ -9,7 +9,8 @@ tower_workflows:
     state: present
     organization: "{{ organization }}"
     schedules: []
-    simplified_workflow_nodes:
+    # simplified_workflow_nodes:
+    workflow_nodes:
       - all_parents_must_converge: false
         identifier: node101
         unified_job_template: Workflow Example Unit
