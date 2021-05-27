@@ -23,10 +23,10 @@
       vars:
         endpoint: "workflow_job_nodes/?job_id={{ tower_job_id }}"
 
-    - name: DEBUG
+    - name: DEBUG workflow
       debug:
         # msg: "{{ result | to_nice_json }}"
-        msg: "{{ result }}"
+        msg: "{{ result.ansible_facts.tower_settings }}"
 
     - name: Get parent Workflow nodes for this Workflow Node
       set_fact:
@@ -34,10 +34,6 @@
       register: parents
       vars:
         endpoint: "workflow_job_nodes/?success_nodes={{ result.ansible_facts.tower_settings.id }}"
-
-    - name: DEBUG
-      debug:
-        msg: "{{ parents }}"
 
     # - name: "Get Workflow node id for this job"
     #   uri:
@@ -57,11 +53,15 @@
     #     password: "{{ tower_password }}"
     #   register: result
 
-    - name: "Fail this playbook if a parent node failed"
-      fail:
-        msg: "Parent workflow node {{ item }} failed"
-      when: "item.summary_fields.job.status == 'failed'"
-      loop: "{{ parents.json.results }}"
+    - name: DEBUG parents
+      debug:
+        msg: "{{ parents }}"
+
+    # - name: "Fail this playbook if a parent node failed"
+    #   fail:
+    #     msg: "Parent workflow node {{ item }} failed"
+    #   when: "item.summary_fields.job.status == 'failed'"
+    #   loop: "{{ parents.json.results }}"
 
     - name: Example using fail and when together
       fail:
