@@ -67,10 +67,9 @@
     - name: Generate Boolean for XOR
       set_fact:
         my_boolean: "{{ (data[0].summary_fields.job.status != data[1].summary_fields.job.status) }}"
-      when: len is "2"
+      when: data|length == 2
       vars:
         data: "{{ parents.ansible_facts.tower_settings }}"
-        len: "{{ data | length }}"
 
     - name: Fail this playbook if a parent node failed
       fail:
