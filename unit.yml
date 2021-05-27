@@ -33,7 +33,7 @@
         tower_settings: "{{ lookup('ansible.tower.tower_api', endpoint) }}"
       register: parents
       vars:
-        endpoint: "workflow_job_nodes/?success_nodes={{ result.json.results[0].id }}"
+        endpoint: "workflow_job_nodes/?success_nodes={{ result.ansible_facts.tower_settings.id }}"
 
     - name: DEBUG
       debug:
