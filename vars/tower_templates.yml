@@ -1,8 +1,44 @@
 tower_templates:
-  - name: Workflow Example Unit
+  - name: "{{ job }} 101"
     description: Job Template created from code
     job_type: run
     inventory: localhost
     project: "{{ project }}"
     playbook: unit.yml
     verbosity: 1
+    credentials: "{{ credentials }}"
+    extra_vars:
+      to_fail: false
+
+  - name: "{{ job }} 102"
+    description: Job Template created from code
+    job_type: run
+    inventory: localhost
+    project: "{{ project }}"
+    playbook: unit.yml
+    verbosity: 1
+    credentials: "{{ credentials }}"
+    extra_vars:
+      to_fail: true
+
+  - name: "{{ job }} 201"
+    description: Job Template created from code
+    job_type: run
+    inventory: localhost
+    project: "{{ project }}"
+    playbook: unit.yml
+    verbosity: 1
+    credentials: "{{ credentials }}"
+    extra_vars:
+      to_fail: false
+
+  - name: "{{ job }} 301"
+    description: Job Template created from code
+    job_type: run
+    inventory: localhost
+    project: "{{ project }}"
+    playbook: unit.yml
+    verbosity: 1
+    credentials: "{{ credentials }}"
+    extra_vars:
+      to_fail: false

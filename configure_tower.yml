@@ -6,8 +6,8 @@
    # - tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
      - tower_oauthtoken: "{{ lookup('env', 'TOWER_OAUTHTOKEN') }}"
    collections:
-     #- ansible.tower
-     - awx.awx
+     - ansible.tower
+     #- awx.awx
      - redhat_cop.tower_configuration
 
    pre_tasks:

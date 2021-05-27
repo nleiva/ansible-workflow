@@ -1,3 +1,5 @@
 project: Workflow Example Project
 organization: Default
 repo: https://github.com/nleiva/ansible-workflow.git
+job: Workflow Node
+credentials: Tower API Token

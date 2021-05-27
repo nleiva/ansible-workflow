@@ -21,7 +21,7 @@
         tower_settings: "{{ lookup('ansible.tower.tower_api', endpoint) }}"
       register: result
       vars:
-        endpoint: "settings/ui"
+        endpoint: "workflow_job_nodes"
 
     # - name: "Get Workflow node id for this job"
     #   uri:
@@ -43,7 +43,7 @@
 
     - name: DEBUG
       debug:
-        msg: "{{ result | from_json | to_nice_json }}"
+        msg: "{{ result | to_nice_json }}"
 
     - name: Example using fail and when together
       fail:

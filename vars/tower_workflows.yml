@@ -13,22 +13,23 @@ tower_workflows:
     workflow_nodes:
       - all_parents_must_converge: false
         identifier: node101
-        unified_job_template: Workflow Example Unit
+        unified_job_template: "{{ job }} 101"
         success_nodes:
           - node201
       - all_parents_must_converge: false
         identifier: node102
-        unified_job_template: Workflow Example Unit
+        unified_job_template: "{{ job }} 102"
         success_nodes:
           - node201
-      - all_parents_must_converge: true
+      # This is an OR    
+      - all_parents_must_converge: false
         identifier: node201
-        unified_job_template: Workflow Example Unit
+        unified_job_template: "{{ job }} 201"
         success_nodes:
           - node301
       - all_parents_must_converge: true
         identifier: node301
-        unified_job_template: Workflow Example Unit
+        unified_job_template: "{{ job }} 301"
       # - all_parents_must_converge: false
       #   identifier: node301
       #   approval_node:
