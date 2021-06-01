@@ -42,10 +42,8 @@ All dependencies are included in the [requirements.yml](collections/requirements
 ansible-galaxy collection install -r collections/requirements.yml
 ```
 
-## API (temp)
+## Links
 
-https://www.ansible.com/blog/tower-workflow-convergence
-`https://tower.nleiva.com/api/v2/workflow_job_nodes/?job_id=2581`
-`https://tower.nleiva.com/api/v2/workflow_job_nodes/?success_nodes=313`
-
-variables: https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#launch-a-job-template
+* [Implement workflow job failure](https://github.com/ansible/awx/pull/382)
+* [Tower Workflow Convergence](https://www.ansible.com/blog/tower-workflow-convergence)
+* [Job Template variables](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#launch-a-job-template)
