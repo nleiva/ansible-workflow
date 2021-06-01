@@ -60,7 +60,7 @@
           fail:
             msg: "Parent workflow nodes status is not the same (XOR)"
           when: not my_boolean
-      when: ( data | length == 2 ) and ( data | type_debug == "list" )
+      when: ( parents.ansible_facts.tower_settings | length == 2 ) and ( data | type_debug == "list" )
       vars:
           data: "{{ parents.ansible_facts.tower_settings }}"
 
