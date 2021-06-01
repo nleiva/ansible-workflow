@@ -35,32 +35,18 @@
       vars:
         endpoint: "workflow_job_nodes/?success_nodes={{ result.ansible_facts.tower_settings.id }}"
 
-    - name: DEBUG parents LENGTH
-      debug:
-        msg: "{{ parents.ansible_facts.tower_settings | length }}"
+    # - name: DEBUG parents LENGTH
+    #   debug:
+    #     msg: "{{ parents.ansible_facts.tower_settings | length }}"
 
-    - name: DEBUG parents TYPE
-      debug:
-        msg: "{{ parents.ansible_facts.tower_settings | type_debug }}"
+    # - name: DEBUG parents TYPE
+    #   debug:
+    #     msg: "{{ parents.ansible_facts.tower_settings | type_debug }}"
 
     # Exclusive OR (XOR) bol(a) != bol(b)
     - name: Check XOR
-      block:
-        - name: Check if a parent node failed
-          debug:
-            msg: "Parent workflow node '{{ item.summary_fields.job.name }}' ({{ item.id }}) failed"
-          when: "item.summary_fields.job.status == 'failed'"
-          loop: "{{ data }}"
-
-        - name: Generate Boolean for XOR
-          set_fact:
-            my_boolean: "{{ (data[0].summary_fields.job.status != data[1].summary_fields.job.status) }}"
-
-        - name: Fail this playbook if XOR is false
-          fail:
-            msg: "Parent workflow nodes status is not the same (XOR)"
-          when: not my_boolean
-      when: ( parents.ansible_facts.tower_settings | length == 2 ) and ( data | type_debug == "list" )
+      include_tasks: xor_check.yaml
+      when: ( data | length == 2 ) and ( data | type_debug == "list" )
       vars:
           data: "{{ parents.ansible_facts.tower_settings }}"
 
