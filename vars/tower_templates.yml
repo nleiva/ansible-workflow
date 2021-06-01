@@ -5,7 +5,7 @@ tower_templates:
     inventory: localhost
     project: "{{ project }}"
     playbook: unit.yml
-    verbosity: 1
+    verbosity: 0
     credentials: "{{ credentials }}"
     extra_vars:
       to_fail: false
@@ -16,7 +16,7 @@ tower_templates:
     inventory: localhost
     project: "{{ project }}"
     playbook: unit.yml
-    verbosity: 1
+    verbosity: 0
     credentials: "{{ credentials }}"
     extra_vars:
       to_fail: true
@@ -27,7 +27,7 @@ tower_templates:
     inventory: localhost
     project: "{{ project }}"
     playbook: unit.yml
-    verbosity: 1
+    verbosity: 0
     credentials: "{{ credentials }}"
     extra_vars:
       to_fail: false
@@ -38,7 +38,7 @@ tower_templates:
     inventory: localhost
     project: "{{ project }}"
     playbook: unit.yml
-    verbosity: 1
+    verbosity: 0
     credentials: "{{ credentials }}"
     extra_vars:
       to_fail: false

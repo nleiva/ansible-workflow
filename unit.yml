@@ -43,7 +43,7 @@
       debug:
         msg: "Parent workflow node '{{ item.summary_fields.job.name }}' ({{ item.id }}) failed"
       when: "item.summary_fields.job.status == 'failed'"
-      loop: "{{ parents.ansible_facts.tower_settings }}"
+      loop: "{{ parents.ansible_facts.tower_settings | list }}"
 
     # Exclusive OR (XOR) bol(a) != bol(b)
     - name: Check XOR
