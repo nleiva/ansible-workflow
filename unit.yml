@@ -45,7 +45,7 @@
 
     # Exclusive OR (XOR) bol(a) != bol(b)
     - name: Check XOR
-      include_tasks: xor_check.yaml
+      include_tasks: xor_check.yml
       when: ( data | length == 2 ) and ( data | type_debug == "list" )
       vars:
           data: "{{ parents.ansible_facts.tower_settings }}"
