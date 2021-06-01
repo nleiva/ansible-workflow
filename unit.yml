@@ -39,20 +39,20 @@
     #   debug:
     #     msg: "{{ parents }}"
 
-    - name: Check if a parent node failed
-      debug:
-        msg: "Parent workflow node '{{ item.summary_fields.job.name }}' ({{ item.id }}) failed"
-      when: "item.summary_fields.job.status == 'failed'"
-      loop: "{{ parents.ansible_facts.tower_settings | list }}"
-
     # Exclusive OR (XOR) bol(a) != bol(b)
     - name: Check XOR
       block:
+      - name: Check if a parent node failed
+        debug:
+          msg: "Parent workflow node '{{ item.summary_fields.job.name }}' ({{ item.id }}) failed"
+        when: "item.summary_fields.job.status == 'failed'"
+        loop: "{{ parents.ansible_facts.tower_settings }}"
+
       - name: Generate Boolean for XOR
         set_fact:
           my_boolean: "{{ (data[0].summary_fields.job.status != data[1].summary_fields.job.status) }}"
 
-      - name: Fail this playbook if a parent node failed
+      - name: Fail this playbook if XOR is false
         fail:
           msg: "Parent workflow nodes status is not the same (XOR)"
         when: not my_boolean
