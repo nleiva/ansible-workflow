@@ -13,5 +13,5 @@ collections:
   #   version: 19.1.0
 
   - name: ansible.controller
-    version: 4.1.2
+    #version: 4.1.2
     source: https://console.redhat.com/api/automation-hub/
