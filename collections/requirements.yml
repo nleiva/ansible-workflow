@@ -1,6 +1,6 @@
 ---
 collections:
-  - name: redhat_cop.tower_configuration
+  - name: redhat_cop.controller_configuration
     version: 2.1.5
     #source: https://galaxy.ansible.com
 
